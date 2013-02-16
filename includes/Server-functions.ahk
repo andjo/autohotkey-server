@@ -57,8 +57,8 @@ ReceiveData(wParam, lParam)
       Else
       {
          SendData(OutgoingSocket, "ARCOMLIST:" . CommandList)
-         Menu TRAY, Rename, No Connection, &Disconnect
-         Menu TRAY, Enable, &Disconnect
+;         Menu TRAY, Rename, No Connection, &Disconnect
+;         Menu TRAY, Enable, &Disconnect
          Menu TRAY, Tip, AHK Remote Server`nConnected!
       }
       Return 1
@@ -113,8 +113,8 @@ NormalClose()
    }
    OutgoingSocket =
    Menu TRAY, Tip, AHK Remote Server`n%A_IPAddress1%
-   Menu TRAY, Rename, &Disconnect, No Connection
-   Menu TRAY, Disable, No Connection
+;   Menu TRAY, Rename, &Disconnect, No Connection
+;   Menu TRAY, Disable, No Connection
    Return 1
 }
 
