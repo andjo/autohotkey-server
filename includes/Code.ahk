@@ -12,7 +12,7 @@ return
 Send {{}
 return
 
-#ö::
+#SC027:: ; #ö
 Send {}}
 return
 
