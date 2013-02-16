@@ -8,16 +8,27 @@ OnExit, ExitSub                           ; do cleanup things on exit to unload 
 #include %A_ScriptDir%\includes
 #include Server-head.ahk
 
-#include Code.ahk
-
-#include Server-functions.ahk
-
 Init_OSD()                          ; initializations for Text-OSD
 Init_Remote()                        ; initializations for remote control script
+
+Return
 
 #include MS_RemoteControl.ahk
 #include MS_TextOSD.ahk
 
+#include Code.ahk
+
+#include Server-functions.ahk
+
+Test()
+{
+   ;OpenChrome("http://svtplay.se/kontroll", 1)
+   Reload
+}
+
+TrayDisconnect:
+NormalClose()
+Return
 
 ExitSub:
 TrayExit:
@@ -28,7 +39,6 @@ TrayExit:
    Gosub Remote_Cleanup              ; DLL-cleanup for remote control script
    ExitApp, 0                        ; End script
 Return
-
 
 ; The following need to be in main file for self parsing stuff to work?
 

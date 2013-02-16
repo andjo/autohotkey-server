@@ -26,7 +26,6 @@ PrepareSocket(IPAddress, Port)
    InsertInteger(2, SocketAddress, 0, 2) ; AF_INET = 2
    InsertInteger(DllCall("Ws2_32\htons", "UShort", Port), SocketAddress, 2, 2)   ; sin_port
    InsertInteger(DllCall("Ws2_32\inet_addr", "Str", IPAddress), SocketAddress, 4, 4)   ; sin_addr.s_addr
-;^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
    If DllCall("Ws2_32\bind", "UInt", Socket, "UInt", &SocketAddress, "Int", 16)
    {
@@ -64,7 +63,6 @@ ReceiveData(wParam, lParam)
       Return 1
    }
 
-;v v v v v v v v v v v v v v v v v v v
    VarSetCapacity(ReceivedData, MaxDataLength, 0)
    ReceivedDataLength := DllCall("Ws2_32\recv", "UInt", wParam, "Str", ReceivedData, "Int", MaxDataLength, "Int", 0)
    If (ReceivedDataLength = 0)  ; The connection was gracefully closed
@@ -82,7 +80,6 @@ ReceiveData(wParam, lParam)
 
    Command := SubStr(ReceivedData, 1, 10)
    ReceivedData := SubStr(ReceivedData, 11)
-;^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
    If (Command = "ARCOMMAND:")
    {
@@ -118,7 +115,6 @@ NormalClose()
    Return 1
 }
 
-;v v v v v v v v v v v v v v v v v v v
 SendData(Socket, Data)
 {
    SendRet := DllCall("Ws2_32\send", "UInt", Socket, "Str", Data, "Int", StrLen(Data), "Int", 0)
@@ -163,12 +159,6 @@ InsertInteger(pInteger, ByRef pDest, pOffset = 0, pSize = 4)
    Loop %pSize%  ; Copy each byte in the integer into the structure as raw binary data.
       DllCall("RtlFillMemory", "UInt", &pDest + pOffset + A_Index-1, "UInt", 1, "UChar", pInteger >> 8*(A_Index-1) & 0xFF)
 }
-
-;^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
-
-TrayDisconnect:
-NormalClose()
-Return
 
 ; ---------------------------------------------------------------------------
 ; Here are some functions you can use to communicate with the client script.
@@ -276,10 +266,4 @@ OpenChrome(url, fullscreen)
       ControlSend, Chrome_RenderWidgetHostHWND1, {F11}
    }
    Return
-}
-
-Test()
-{
-   ;OpenChrome("http://svtplay.se/kontroll", 1)
-   Reload
 }
