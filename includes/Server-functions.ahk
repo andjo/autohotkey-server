@@ -266,7 +266,10 @@ OpenChrome(url, fullscreen)
       Send {Enter}
    } else {
       Envget,vHOMEDRIVE, LOCALAPPDATA
-      chromePath := vHOMEDRIVE . "\Google\Chrome\Application\chrome.exe"
+      if FileExist(vHOMEDRIVE . "\Google\Chrome\Application\chrome.exe")
+         chromePath := vHOMEDRIVE . "\Google\Chrome\Application\chrome.exe"
+      else
+         chromePath := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 
       Run %chromePath% %url%
       WinWaitActive, ahk_class Chrome_WidgetWin_1,, 2
