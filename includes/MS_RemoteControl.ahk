@@ -27,7 +27,7 @@ Init_Remote()
   if (errorlevel <> 0) || (nRC == -1)
   {
     MsgBox RegisterDevice failed. Errorcode: %errorlevel%`nDLL vorhanden?
-    goto Remote_Cleanup
+    goSub Remote_Cleanup
   }
   
   ; Register second device
@@ -51,7 +51,7 @@ InputMsg(wParam, lParam, msg, hwnd)
   if (errorlevel <> 0) || (nRC == -1) 
   {
     MsgBox GetWM_INPUTHIDData failed. Errorcode: %errorlevel%
-    goto Remote_Cleanup
+    goSub Remote_Cleanup
   }     
   loop, %DataSize%
   {
