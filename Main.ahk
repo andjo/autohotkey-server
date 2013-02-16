@@ -22,10 +22,10 @@ Init_Remote()                        ; initializations for remote control script
 ExitSub:
 TrayExit:
    DllCall("Ws2_32\WSACleanup")
-   ;Gosub HideVolumeOSD                    ; hide VolumeOSD before
-   Gosub Hide_OSD                      ; hide Text Based OSD
-   ;Gosub VolumeBar_Hide                  ; hide Volume Bar OSD
-   Gosub Remote_Cleanup                  ; DLL-cleanup for remote control script
+   ;Gosub HideVolumeOSD              ; hide VolumeOSD before
+   Gosub Hide_OSD                    ; hide Text Based OSD
+   ;Gosub VolumeBar_Hide             ; hide Volume Bar OSD
+   Gosub Remote_Cleanup              ; DLL-cleanup for remote control script
    ExitApp, 0                        ; End script
 Return
 
