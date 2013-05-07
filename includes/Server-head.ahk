@@ -47,7 +47,7 @@ DetectHiddenWindows Off
 If DllCall("Ws2_32\WSAAsyncSelect", "UInt", MainSocket, "UInt", MainWindow, "UInt", 5555, "Int", 41)
 ;v v v v v v v v v v v v v v v v v v v
 {
-    MsgBox % "WSAAsyncSelect() indicated Winsock error " . DllCall("Ws2_32\WSAGetLastError")
+    ;MsgBox % "WSAAsyncSelect() indicated Winsock error " . DllCall("Ws2_32\WSAGetLastError")
     ExitApp
 }
 
