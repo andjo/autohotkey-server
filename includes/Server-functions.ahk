@@ -37,7 +37,7 @@ PrepareSocket(IPAddress, Port)
       MsgBox % "Listen() indicated Winsock error " . DllCall("Ws2_32\WSAGetLastError")
       return -1
    }
-    
+
    Return Socket
 }
 
@@ -51,9 +51,10 @@ ReceiveData(wParam, lParam)
       If (OutgoingSocket > 0)
          NormalClose() ;Close OutgoingSocket
       OutgoingSocket := DllCall("Ws2_32\accept", "UInt", wParam, "UInt", &SocketAddress, "Int", 0)
-      If (OutgoingSocket < 0)
-         MsgBox % "Accept() indicated Winsock error " . DllCall("Ws2_32\WSAGetLastError")
-      Else
+      ;If (OutgoingSocket < 0)
+      ;   MsgBox % "Accept() indicated Winsock error " . DllCall("Ws2_32\WSAGetLastError")
+      ;Else
+      If (OutgoingSocket = 0)
       {
          SendData(OutgoingSocket, "ARCOMLIST:" . CommandList)
 ;         Menu TRAY, Rename, No Connection, &Disconnect
@@ -245,15 +246,16 @@ ARMenu(Items) ;Items format: Item1|Item2|Item3, || makes a separator.
    }
 }
 
-OpenChrome(url, fullscreen)
+OpenChrome(url, fullscreen, title)
 {
-   if WinExist("ahk_class Chrome_WidgetWin_1-foo") {
+   if WinExist("ahk_class Chrome_WidgetWin_1", title) {
       WinActivate
-      if fullscreen = 1
-         ControlSend, Chrome_RenderWidgetHostHWND1, {F11}
-      Send ^t
-      SendInput %url%
-      Send {Enter}
+      if (fullscreen = 1) {
+         WinGetPos X,Y  ; Trying to detect if fullscreen mode is already active.
+         if (X <> 0 or Y <> 0) {
+            ControlSend, Chrome_RenderWidgetHostHWND1, {F11}
+         }
+      }
    } else {
       Envget,vHOMEDRIVE, LOCALAPPDATA
       if FileExist(vHOMEDRIVE . "\Google\Chrome\Application\chrome.exe")
@@ -261,9 +263,12 @@ OpenChrome(url, fullscreen)
       else
          chromePath := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 
-      Run %chromePath% %url%
-      WinWaitActive, ahk_class Chrome_WidgetWin_1,, 2
-      ControlSend, Chrome_RenderWidgetHostHWND1, {F11}
+      Run %chromePath% "--app="%url%
+      ;WinWaitActive, ahk_class Chrome_WidgetWin_1,,2
+      WinWaitActive, title,, 5
+      if fullscreen = 1
+        ;ControlSend, Chrome_RenderWidgetHostHWND1, {F11}
+        Send {F11}
    }
    Return
 }

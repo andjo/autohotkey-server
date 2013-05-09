@@ -50,9 +50,13 @@ Run "C:\Windows\nircmd.exe" standby
 Return
 
 YouTube:
-OpenChrome("http://youtube.com/tv", 1)
+OpenChrome("http://youtube.com/tv", 1, "YouTube TV")
+Return
+
+SvtKontroll:
+OpenChrome("http://svtplay.se/kontroll", 1, "SVT Play Kontroll")
 Return
 
 SvtPlay:
-OpenChrome("http://svtplay.se/kontroll", 1)
+OpenChrome("http://svtplay.se/", 1, "SVT Play")
 Return
