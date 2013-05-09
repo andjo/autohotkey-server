@@ -60,3 +60,14 @@ Return
 SvtPlay:
 OpenChrome("http://svtplay.se/", 1, "SVT Play")
 Return
+
+XBMC:
+if WinExist("ahk_class XBMC")        ; if XBMC is not active
+{
+  WinActivate
+  WinMaximize
+}
+else
+{
+  Run, "%ProgramFiles%\XBMC\XBMC.exe"      ; run XBMC
+}
